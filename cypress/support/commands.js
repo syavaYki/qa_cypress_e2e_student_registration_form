@@ -3,26 +3,26 @@
 /// <reference types='cypress' />
 
 Cypress.Commands.add('clickRandomRadio', (selector) => {
-  cy.get(selector).then((radios) => {
-    const randomIndex = Math.floor(Math.random() * radios.length);
-    const randomValue = radios.get(randomIndex).value;
-
-    cy.get(selector).eq(randomIndex).check({ force: true });
-
-    cy.get(selector)
-      .eq(randomIndex)
-      .then(() => randomValue);
-  });
+  return cy
+    .get(selector)
+    .its('length')
+    .then((count) => {
+      const randomIndex = Math.floor(Math.random() * count);
+      return cy.get(selector).eq(randomIndex).check({ force: true });
+    })
+    .invoke('val');
 });
 
 Cypress.Commands.add('clickRandomMenu', (selector) => {
-  return cy.get(selector).then((checkBoxs) => {
-    const randomIndex = Math.floor(Math.random() * checkBoxs.length);
-    const randomValue = checkBoxs.get(randomIndex).textContent;
+  return cy
+    .get(selector)
+    .its('length')
+    .then((count) => {
+      const randomIndex = Math.floor(Math.random() * count);
 
-    cy.get(selector).eq(randomIndex).click({ force: true });
-    cy.then(() => randomValue);
-  });
+      return cy.get(selector).eq(randomIndex).click({ force: true });
+    })
+    .invoke('text');
 });
 
 Cypress.Commands.add('clickRandomCheckBoxes', (selector) => {

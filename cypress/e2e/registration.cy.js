@@ -10,7 +10,7 @@ describe('Student Registration page', () => {
     cy.visit('https://demoqa.com/automation-practice-form');
   });
 
-  it('shoud fill out the form', () => {
+  it('should fill out the form', () => {
     cy.get('#firstName').type(person.firstName);
     cy.get('#lastName').type(person.lastName);
     cy.get('#userEmail').type(person.email);
